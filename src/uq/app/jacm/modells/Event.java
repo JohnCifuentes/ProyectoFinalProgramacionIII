@@ -1,50 +1,41 @@
 package uq.app.jacm.modells;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class Event implements StringFormatter{
-	private static int nextID = 1;
+import uq.app.jacm.tools.Generic;
+
+public class Event implements Comparable<Event>{
+	private static int nextID = 0;
 	private int id;
 	private String name;
 	private LocalDate scheduledTime;
-	private Location location;
-	private EventDetails eventDetail;
-	private EventDetailSpots evenDetailSpots;
-	private EventDetailArtistAccounts eventDetailArtistAccounts;
+	private int priceTicket;
+	private boolean ageRestriction;
+	private Location location;	
+	private ArrayList<String> artists;
+	private ArrayList<Spot> spots;
 	
 	public Event() {
-		super();
-		this.id = Event.nextID++;
 	}
 
-	public Event(String name, LocalDate scheduledTime, Location location, EventDetails eventDetail,
-			EventDetailSpots evenDetailSpots, EventDetailArtistAccounts eventDetailArtistAccounts) {
-		super();
+	public Event(String name, LocalDate scheduledTime, int priceTicket, boolean ageRestriction, Location location) {
+		this.id = ++Event.nextID;
 		this.name = name;
 		this.scheduledTime = scheduledTime;
+		this.priceTicket = priceTicket;
+		this.ageRestriction = ageRestriction;
 		this.location = location;
-		this.eventDetail = eventDetail;
-		this.evenDetailSpots = evenDetailSpots;
-		this.eventDetailArtistAccounts = eventDetailArtistAccounts;
+		this.artists = new ArrayList<>();
+		this.spots = new ArrayList<>();
 	}
 	
-	@Override
-	public String formString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void writeToFile(String data) {
-		// TODO Auto-generated method stub		
-	}
-
 	public static int getNextID() {
-		return nextID;
+		return Event.nextID;
 	}
-
-	public static void setNextID(int nextID) {
-		Event.nextID = nextID;
+	
+	public static void updateNextID(int nextID) {
+		Account.nextID = nextID; 
 	}
 
 	public int getId() {
@@ -63,12 +54,24 @@ public class Event implements StringFormatter{
 		this.name = name;
 	}
 
-	public LocalDate getScheduledTime() {
-		return scheduledTime;
+	public LocalDate getScheduledTimeDate() {
+		return this.scheduledTime;
+	}
+	
+	public String getScheduledTime() {
+		return scheduledTime.format(Generic.formatter);
 	}
 
 	public void setScheduledTime(LocalDate scheduledTime) {
 		this.scheduledTime = scheduledTime;
+	}
+
+	public int getPriceTicket() {
+		return priceTicket;
+	}
+
+	public void setPriceTicket(int priceTicket) {
+		this.priceTicket = priceTicket;
 	}
 
 	public Location getLocation() {
@@ -79,28 +82,72 @@ public class Event implements StringFormatter{
 		this.location = location;
 	}
 
-	public EventDetails getEventDetail() {
-		return eventDetail;
+	public boolean isAgeRestriction() {
+		return ageRestriction;
 	}
 
-	public void setEventDetail(EventDetails eventDetail) {
-		this.eventDetail = eventDetail;
+	public void setAgeRestriction(boolean ageRestriction) {
+		this.ageRestriction = ageRestriction;
 	}
 
-	public EventDetailSpots getEvenDetailSpots() {
-		return evenDetailSpots;
+	public ArrayList<String> getArtists() {
+		return artists;
 	}
 
-	public void setEvenDetailSpots(EventDetailSpots evenDetailSpots) {
-		this.evenDetailSpots = evenDetailSpots;
-	}
-
-	public EventDetailArtistAccounts getEventDetailArtistAccounts() {
-		return eventDetailArtistAccounts;
-	}
-
-	public void setEventDetailArtistAccounts(EventDetailArtistAccounts eventDetailArtistAccounts) {
-		this.eventDetailArtistAccounts = eventDetailArtistAccounts;
+	public void setArtists(ArrayList<String> artists) {
+		this.artists = artists;
 	}
 	
+	public void loadArtists(String eventArtists) {
+		String[] artist = eventArtists.split(",");
+		for(String a: artist) {
+			this.artists.add(a.replaceFirst("^\\s", ""));
+		}
+	}
+
+	public ArrayList<Spot> getSpots() {
+		return spots;
+	}
+
+	public void setSpots(ArrayList<Spot> spots) {
+		this.spots = spots;
+	}
+	
+	public void addSpot(Spot spot) {
+		this.spots.add(spot);
+	}
+	
+	public void loadSpots() {
+		int rowGold = Math.round(this.location.getNumRows()*TicketCategory.GOLD.getPercent());
+		int rowSilver = Math.round(this.location.getNumRows()*TicketCategory.SILVER.getPercent());
+		for(int i = 0; i < this.location.getNumRows(); i++) {	
+			for(int j = 0; j < this.location.getNumColumns(); j++) {
+				if(i <= rowGold) {
+					this.spots.add(new Spot(i, j, TicketCategory.GOLD, true));
+				} else if(i > rowGold && i <= rowSilver) {
+					this.spots.add(new Spot(i, j, TicketCategory.SILVER, true));
+				} else if(i > rowSilver) {
+					this.spots.add(new Spot(i, j, TicketCategory.COPPER, true));
+				}				
+			}
+		}
+	}
+	
+	public Spot loadTicketCategorySpot(Spot spot) {
+		int rowGold = Math.round(this.location.getNumRows()*TicketCategory.GOLD.getPercent());
+		int rowSilver = Math.round(this.location.getNumRows()*TicketCategory.SILVER.getPercent());
+		if(spot.getRow() <= rowGold) {
+			spot.setTicketCategory(TicketCategory.GOLD);
+		} else if(spot.getRow() > rowGold && spot.getRow() <= rowSilver) {
+			spot.setTicketCategory(TicketCategory.SILVER);
+		} else if(spot.getRow() > rowSilver) {
+			spot.setTicketCategory(TicketCategory.COPPER);
+		}	
+		return spot;
+	}
+
+	@Override
+	public int compareTo(Event o) {
+		return this.scheduledTime.compareTo(o.getScheduledTimeDate());
+	}
 }

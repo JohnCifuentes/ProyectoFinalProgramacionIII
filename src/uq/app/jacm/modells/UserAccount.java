@@ -2,29 +2,20 @@ package uq.app.jacm.modells;
 
 import java.time.LocalDate;
 
-public class UserAccount extends Account implements StringFormatter{
+import uq.app.jacm.tools.Generic;
+
+public class UserAccount extends Account{ 
 	private String email;
-	private int number;
+	private String number;
 	private LocalDate birthday;
 	
-	public UserAccount(String name, String documentNumber, String email, int number, LocalDate birthday) {
-		super(name, documentNumber);
+	public UserAccount(String name, String lastName, String documentNumber, boolean isAdmin, String email, String number, LocalDate birthday) {
+		super(name, lastName, documentNumber, isAdmin);
 		this.email = email;
 		this.number = number;
 		this.birthday = birthday;
 	}
 
-	@Override
-	public String formString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void writeToFile(String data) {
-		// TODO Auto-generated method stub
-	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -33,16 +24,16 @@ public class UserAccount extends Account implements StringFormatter{
 		this.email = email;
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public LocalDate getBirthday() {
-		return birthday;
+	public String getBirthday() {
+		return birthday.format(Generic.formatter);
 	}
 
 	public void setBirthday(LocalDate birthday) {

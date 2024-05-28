@@ -24,12 +24,6 @@ public class TicketRegistry implements StringFormatter{
 		return null;
 	}
 
-	@Override
-	public void writeToFile(String data) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public int getId() {
 		return id;
 	}

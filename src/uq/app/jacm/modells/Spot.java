@@ -45,5 +45,9 @@ public class Spot {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+	
+	public String getTicketSpot() {
+		return this.row + "-" + this.column;
+	}
 
 }

@@ -1,29 +1,11 @@
 package uq.app.jacm.tools;
 
 public enum DirectoryType {
-	/**
-	 * idLocation.txt
-	 */
-	LOCATION("/locations"),
-	/**
-	 * idEvent
-	 * 	gen.txt
-	 *  listArtists.txt
-	 *  listSpots.txt 		
-	 */
-	EVENT("/events"),
-	/**
-	 * idAccount.txt
-	 */
-	ACCOUNT("/accounts"),
-	ACCOUNT_ARTIST("/artists"),
-	ACCOUNT_USER("/users"),
-	/**
-	 * idTicket
-	 * 	general.txt
-	 *  listaTickets.txt
-	 */
-	TICKET("/ticket");
+	ACCOUNT_USER("src/GoTicketNow/accounts/userAccount.txt"),
+	ACCOUNT_ARTIST("src/GoTicketNow/accounts/artistAccount.txt"),
+	LOCATION("src/GoTicketNow/locations/location.txt"),
+	EVENT("src/GoTicketNow/events/"),
+	TICKET("src/GoTicketNow/tickets/");
 	
 	private String path;
 

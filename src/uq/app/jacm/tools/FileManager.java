@@ -11,15 +11,34 @@ import java.util.ArrayList;
 public class FileManager {
 	private File file;
 	
-	public FileManager(String path) throws IOException  {
+	public FileManager(String path) throws IOException {
 		this.file = new File(path);
-		File directoryFile = this.file.getParentFile();
-		if(!directoryFile.exists())
-			directoryFile.mkdirs();
+		
+		if(!this.file.exists()) {
+			if(path.endsWith("/")) {
+				this.file.mkdir();
+			} else {
+				if(!this.file.getParentFile().exists()) {
+					this.file.getParentFile().mkdir();
+					this.file.createNewFile();
+				}
+			}
+		}
 	}
 
+	public ArrayList<String> listFilesFromDirectory() throws IOException{
+		ArrayList<String> listFiles = new ArrayList<>();
+		if(this.file.listFiles() != null) {
+			for(File f: this.file.listFiles()) {
+				if(!f.isDirectory() && !f.isHidden()) {
+					listFiles.add(f.getAbsolutePath());
+				}
+			}			
+		}
+		return listFiles;
+	}
 
-	public ArrayList<String> listFilesFromDirectory() throws IOException {
+	public ArrayList<String> readToFile() throws IOException {
 		FileReader fileReader = new FileReader(this.file);
 		BufferedReader bufferRead= new BufferedReader(fileReader);
 		ArrayList<String> records = new ArrayList<>();
@@ -33,9 +52,9 @@ public class FileManager {
 	}
 
 	public void writeToFile(String data) throws IOException {
-		FileWriter fileWriter = new FileWriter(this.file, false);
+		FileWriter fileWriter = new FileWriter(this.file, true);
 		BufferedWriter bufferWrite = new BufferedWriter(fileWriter);
-		bufferWrite.write(data);
+		bufferWrite.write("\n" + data);
 		bufferWrite.flush();
 		bufferWrite.close();
 		fileWriter.close();

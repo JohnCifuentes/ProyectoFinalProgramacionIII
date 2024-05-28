@@ -1,21 +1,21 @@
 package uq.app.jacm.modells;
 
-public class Location implements StringFormatter{
-	private static int nextID = 1;
+public class Location{
+	private static int nextID = 0;
 	private int id;
 	private String name;
 	private int numRows;
 	private int numColumns;
 	
-	public Location() {
-		this.id = Location.nextID++;
-	}
-	
 	public Location(String name, int numRows, int numColumns) {
-		super();
+		this.id = ++Location.nextID;
 		this.name = name;
 		this.numRows = numRows;
 		this.numColumns = numColumns;
+	}
+	
+	public static void updateNextID(int nextID) {
+		Location.nextID = nextID; 
 	}
 
 	public int getId() {
@@ -48,17 +48,6 @@ public class Location implements StringFormatter{
 
 	public void setNumColumns(int numColumns) {
 		this.numColumns = numColumns;
-	}
-
-	@Override
-	public String formString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void writeToFile(String data) {
-		// TODO Auto-generated method stub
 	}
 
 }

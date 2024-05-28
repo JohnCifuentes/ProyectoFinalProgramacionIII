@@ -1,28 +1,18 @@
 package uq.app.jacm.modells;
 
 public enum TicketCategory {
-	GOLD(10, 0),
-	SILVER(30, 0),
-	COPPER(60, 0);
+	GOLD(0.1f),
+	SILVER(0.30f),
+	COPPER(0.60f);
 	
-	private int percent;
-	private int price;
+	private float percent;
 	
-	TicketCategory(int percent, int price){
+	TicketCategory(float percent){
 		this.percent = percent;
-		this.price = price;
 	}
 	
-	public int getPercent() {
+	public float getPercent() {
 		return this.percent;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 	
 }

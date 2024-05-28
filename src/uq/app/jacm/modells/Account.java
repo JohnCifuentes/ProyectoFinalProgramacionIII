@@ -1,16 +1,26 @@
 package uq.app.jacm.modells;
 
 public class Account {
-	private static int nextID = 1;
+	public static int nextID = 0;
 	private int id;
 	private String name;
+	private String lastName;
 	private String documentNumber;
+	private boolean isAdmin;
 	
-	public Account(String name, String documentNumber) {
-		super();
-		this.id = Account.nextID++;
+	public Account() {
+	}
+	
+	public Account(String name, String lastName, String documentNumber, boolean isAdmin) {
+		this.id = ++Account.nextID;
 		this.name = name;
+		this.lastName = lastName;
 		this.documentNumber = documentNumber;
+		this.isAdmin = isAdmin;
+	}
+	
+	public static void updateNextID(int nextID) {
+		Account.nextID = nextID; 
 	}
 
 	public int getId() {
@@ -29,12 +39,28 @@ public class Account {
 		this.name = name;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getDocumentNumber() {
 		return documentNumber;
 	}
 
 	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

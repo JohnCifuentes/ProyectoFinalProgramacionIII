@@ -1,0 +1,8 @@
+001¬John Alexander¬Cifuentes Murillo¬1094962750¬1¬johncifuentes97@gmail.com¬3232337553¬01/07/1997
+002¬John¬Cifuentes¬1094962753¬0¬prueba@prueba.prueba¬159753¬01/07/1997
+003¬asd¬asd¬asd¬0¬asd@asd.asd¬123¬01/07/1997
+004¬zxc¬zxc¬123¬0¬qwe@qwe.qwe¬123¬01/07/1997
+006¬qwe¬qwe¬123123¬0¬qwe@asd.com¬123¬01/07/1997
+007¬Daniela¬Garcia Giraldo¬1094978925¬0¬prueba@prueba.com¬123789¬28/09/1999
+008¬John¬Cifuentes Murillo¬123123123¬0¬prueba@prueba.prueba¬123¬01/07/1997
+011¬asdasd¬asdasd¬789456¬0¬dfgh@fdgh.com¬123¬28/09/1999
