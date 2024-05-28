@@ -1,0 +1,8 @@
+001¬Coliseo del Cafe xD¬30¬15
+002¬Portal del Quindio¬13¬12
+003¬Prueba de Location¬123¬123
+004¬Teatro UQ¬10¬6
+005¬Teatro UQ Pequeño¬10¬6
+006¬Teatro UQ Pequeño more¬10¬6
+007¬asd¬3¬4
+008¬Teatro muy pero muy pequeño¬5¬6
