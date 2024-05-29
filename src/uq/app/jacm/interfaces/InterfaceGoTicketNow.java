@@ -25,9 +25,6 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 
 public class InterfaceGoTicketNow extends JFrame{
@@ -53,6 +50,9 @@ public class InterfaceGoTicketNow extends JFrame{
 	 */
 	private InterfaceGoTicketNowControlAL interfaceGoTicketNowControlAL = new InterfaceGoTicketNowControlAL(this);
 	private JButton btnThirdButton;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_4;
 	/**
 	 * 
 	 */
@@ -166,7 +166,7 @@ public class InterfaceGoTicketNow extends JFrame{
 		gbl_panel_2.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JPanel panel_5 = new JPanel();
+		panel_5 = new JPanel();
 		panel_5.setForeground(new Color(128, 0, 128));
 		panel_5.setBackground(SystemColor.textHighlight);
 		panel_5.setBorder(UIManager.getBorder("ToolTip.border"));
@@ -232,7 +232,7 @@ public class InterfaceGoTicketNow extends JFrame{
 			panel_5.setVisible(false);
 		}
 		
-		JPanel panel_6 = new JPanel();
+		panel_6 = new JPanel();
 		panel_6.setForeground(new Color(255, 0, 255));
 		panel_6.setBackground(SystemColor.textHighlight);
 		panel_6.setBorder(UIManager.getBorder("ToolTip.border"));
@@ -298,7 +298,7 @@ public class InterfaceGoTicketNow extends JFrame{
 			panel_6.setVisible(false);
 		}
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.textHighlight);
 		panel_4.setBorder(UIManager.getBorder("ToolTip.border"));
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
@@ -464,6 +464,7 @@ public class InterfaceGoTicketNow extends JFrame{
 	public void updateListFirstShows() {
 		ArrayList<Event> eventsAux = this.goTicketNow.getEvents();
 		Collections.sort(eventsAux);
+		this.events.clear();
 		for(Event e: eventsAux) {
 			if(!(e.getScheduledTimeDate().compareTo(LocalDate.now()) < 0)) {
 				Period period = Period.between(LocalDate.now(), e.getScheduledTimeDate());
@@ -478,18 +479,33 @@ public class InterfaceGoTicketNow extends JFrame{
 	public void updateFirstShow() {
 		this.lblFirstShowName.setText(this.events.get(0).getName());
 		this.lblFirstShowLocation.setText(this.events.get(0).getLocation().getName());
-		this.lblFirstShowScheduled.setText(this.events.get(0).getScheduledTime());		
+		this.lblFirstShowScheduled.setText(this.events.get(0).getScheduledTime());
+		try{
+			this.panel_5.setVisible(true);
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("updateFirstShow " + e.getMessage());
+		} 
 	}
 	
 	public void updateSecondShow() {
 		this.lblSecondShowName.setText(this.events.get(1).getName());
 		this.lblSecondShowLocation.setText(this.events.get(1).getLocation().getName());
 		this.lblSecondShowScheduled.setText(this.events.get(1).getScheduledTime());
+		try{
+			this.panel_6.setVisible(true);
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("updateSecondShow " + e.getMessage());
+		}
 	}
 
 	public void updateThirdShow() {
 		this.lblThirdShowName.setText(this.events.get(2).getName());
 		this.lblThirdShowLocation.setText(this.events.get(2).getLocation().getName());
 		this.lblThirdShowScheduled.setText(this.events.get(2).getScheduledTime());
+		try{
+			this.panel_4.setVisible(true);
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("updateThirdShow " + e.getMessage());
+		}
 	}
 }

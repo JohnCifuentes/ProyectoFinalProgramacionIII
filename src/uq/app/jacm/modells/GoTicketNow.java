@@ -165,9 +165,8 @@ public class GoTicketNow {
 		for(String s: listFilesFromDirectory) {
 			this.tickets.add(loadTicketDetails(s));
 		}
-		/*
 		if(this.tickets.size() != 0) 
-			Ticket.updateNextID(this.tickets.get(this.tickets.size() - 1).getId());*/
+			Ticket.updateNextID(this.tickets.get(this.tickets.size() - 1).getId());
 	}
 	
 	/**
