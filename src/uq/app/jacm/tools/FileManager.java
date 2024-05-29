@@ -51,8 +51,8 @@ public class FileManager {
 		return records;
 	}
 
-	public void writeToFile(String data) throws IOException {
-		FileWriter fileWriter = new FileWriter(this.file, true);
+	public void writeToFile(String data, boolean rewrite) throws IOException {
+		FileWriter fileWriter = new FileWriter(this.file, rewrite);
 		BufferedWriter bufferWrite = new BufferedWriter(fileWriter);
 		bufferWrite.write("\n" + data);
 		bufferWrite.flush();
