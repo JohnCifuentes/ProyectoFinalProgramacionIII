@@ -48,7 +48,7 @@ public class GoTicketNow {
 	public boolean addAccountUser(UserAccount userAccount) throws IOException {
 		if(this.accounts.stream().noneMatch(account -> account.getDocumentNumber().equals(userAccount.getDocumentNumber()))) {
 			this.accounts.add(userAccount);
-			this.fileManagerUserAccounts.writeToFile(new UserAccountFile().getStringFromObject(userAccount));
+			this.fileManagerUserAccounts.writeToFile(new UserAccountFile().getStringFromObject(userAccount), true);
 			return true;
 		} else {
 			return false;
@@ -89,7 +89,7 @@ public class GoTicketNow {
 	public boolean addLocations(Location location) throws IOException{
 		if(this.locations.stream().noneMatch(loc -> loc.getName().toLowerCase().replaceAll(" ", "").equals(location.getName().toLowerCase().replaceAll(" ", "")))) {
 			this.locations.add(location);
-			this.fileManageLocations.writeToFile(new LocationFile().getStringFromObject(location));
+			this.fileManageLocations.writeToFile(new LocationFile().getStringFromObject(location), true);
 			return true;
 		} else {
 			return false;
@@ -144,11 +144,17 @@ public class GoTicketNow {
 		if(this.events.stream().noneMatch(ev -> (ev.getScheduledTime().equals(event.getScheduledTime()) && ev.getLocation().getName().equals(event.getLocation().getName())))){
 			this.events.add(event);
 			FileManager fileManager = new FileManager(DirectoryType.EVENT.getPath() + event.getId() + "Location.txt");
-			fileManager.writeToFile(new EventFile().getStringFromObject(event));
+			fileManager.writeToFile(new EventFile().getStringFromObject(event), true);
 			return true;
 		} else {
 			return false;
 		}
+	}
+	/*
+	 *
+	 */
+	public ArrayList<Event> getEvents(){
+		return this.events;
 	}
 	
 	/** 
@@ -195,15 +201,17 @@ public class GoTicketNow {
 	public boolean addTicket(Ticket ticket) throws IOException {
 		this.tickets.add(ticket);
 		FileManager fileManager = new FileManager(DirectoryType.TICKET.getPath() + ticket.getId() + "Ticket.txt");
-		fileManager.writeToFile(new TicketFile().getStringFromObject(ticket));		
+		fileManager.writeToFile(new TicketFile().getStringFromObject(ticket), true);	
+		updateEvent(ticket.getEvent());
 		return true;
 	}
 	
 	/*
-	 *
+	 * 
 	 */
-	public ArrayList<Event> getEvents(){
-		return this.events;
+	public void updateEvent(Event event) throws IOException {
+		FileManager fileManager = new FileManager(DirectoryType.EVENT.getPath() + event.getId() + "Location.txt");
+		fileManager.writeToFile(new EventFile().getStringFromObject(event), false);
 	}
 	
 	/**

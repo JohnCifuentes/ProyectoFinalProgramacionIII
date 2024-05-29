@@ -106,7 +106,8 @@ public class InterfaceGoTicketNowControlAL implements ActionListener{
 	 * 
 	 */
 	public void interfaceSoldShow(int index) {
-        try (Socket socket = new Socket("localhost", Generic.port);
+		/*
+		try (Socket socket = new Socket("localhost", Generic.port);
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in))
@@ -117,16 +118,14 @@ public class InterfaceGoTicketNowControlAL implements ActionListener{
                System.out.println("Server response: " + response);
            } catch (IOException e) {
                e.printStackTrace();
-           }
-		/*
+           }*/
+		
 		this.interfaceGoTicketNow.setVisible(false);
 		InterfaceSoldShow interfaceSoldShow = new InterfaceSoldShow(this.interfaceGoTicketNow, this.interfaceGoTicketNow.getGoTicketNow().getUserAccountLogin(), this.interfaceGoTicketNow.getEvents().get(index));
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		interfaceSoldShow.setLocation(screen.width/5, screen.height/3);
 		interfaceSoldShow.setSize(800, 350);
 		interfaceSoldShow.setVisible(true);
-		*/
 	}
-	
 
 }
